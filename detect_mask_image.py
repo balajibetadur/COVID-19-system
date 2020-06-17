@@ -11,33 +11,32 @@ import cv2
 import os
 
 # construct the argument parser and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required=True,
-	help="path to input image")
-ap.add_argument("-f", "--face", type=str,
-	default="face_detector",
-	help="path to face detector model directory")
-ap.add_argument("-m", "--model", type=str,
-	default="mask_detector.model",
-	help="path to trained face mask detector model")
+# ap = argparse.ArgumentParser()
+# ap.add_argument("-i", "--image", required=True,
+# 	help="path to input image")
+# ap.add_argument("-f", "--face", type=str,
+# 	default="face_detector",
+# 	help="path to face detector model directory")
+# ap.add_argument("-m", "--model", type=str,
+# 	default="mask_detector.model",
+# 	help="path to trained face mask detector model")
 ap.add_argument("-c", "--confidence", type=float, default=0.5,
-	help="minimum probability to filter weak detections")
-args = vars(ap.parse_args())
+ 	help="minimum probability to filter weak detections")
+# args = vars(ap.parse_args())
 
 # load our serialized face detector model from disk
 print("[INFO] loading face detector model...")
-prototxtPath = os.path.sep.join([args["face"], "deploy.prototxt"])
-weightsPath = os.path.sep.join([args["face"],
-	"res10_300x300_ssd_iter_140000.caffemodel"])
+prototxtPath = "face_detector/deploy.prototxt"
+weightsPath ="face_detector/res10_300x300_ssd_iter_140000.caffemodel"
 net = cv2.dnn.readNet(prototxtPath, weightsPath)
 
 # load the face mask detector model from disk
 print("[INFO] loading face mask detector model...")
-model = load_model(args["model"])
+model = load_model("mask_detector.model")
 
 # load the input image from disk, clone it, and grab the image spatial
 # dimensions
-image = cv2.imread(args["image"])
+image = cv2.imread("examples/example_01.png")
 orig = image.copy()
 (h, w) = image.shape[:2]
 
@@ -58,7 +57,7 @@ for i in range(0, detections.shape[2]):
 
 	# filter out weak detections by ensuring the confidence is
 	# greater than the minimum confidence
-	if confidence > args["confidence"]:
+	if confidence > 0.5:
 		# compute the (x, y)-coordinates of the bounding box for
 		# the object
 		box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])

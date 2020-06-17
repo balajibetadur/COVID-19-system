@@ -22,7 +22,7 @@ from sklearn.metrics import classification_report
 from imutils import paths
 import matplotlib.pyplot as plt
 import numpy as np
-import argparse
+# import argparse
 import os
 
 # construct the argument parser and parse the arguments
@@ -66,9 +66,9 @@ for imagePath in imagePaths:
 	labels.append(label)
     
     
-for i in imagePaths:
-    count+=1
-    print(count)
+# for i in imagePaths:
+#     count+=1
+#     print(count)
 
 # convert the data and labels to NumPy arrays
 data = np.array(data, dtype="float32")
@@ -131,7 +131,8 @@ H = model.fit(
 	steps_per_epoch=len(trainX) // BS,
 	validation_data=(testX, testY),
 	validation_steps=len(testX) // BS,
-	epochs=EPOCHS)
+	epochs=EPOCHS,
+    verbose=1)
 
 # make predictions on the testing set
 print("[INFO] evaluating network...")
