@@ -1,0 +1,1 @@
+web: gunicorn covid2:app
