@@ -23,27 +23,7 @@ def prob():
             user_input=[[fever,age,pain,nose,breath]]
             prob3=clf.predict(user_input)
             
-            if prob3==1:
-                o_inf=1
-            else:
-                o_inf=0
-            print(o_inf)
-            prob=(breath*12500)+(nose*1000)+(pain*1000)+(fever*202)+(age*3)
-            
-            if prob <21000:
-                inf=0
-            elif prob>=21000 and prob < 25000:
-                inf=1
-            elif prob >= 25000 and prob < 27000:
-                inf=2
-            elif prob>=27000:
-                inf=3
-            print(request.form)
-            print(prob)
-            print(prob3)
-            print(inf)
-            print(o_inf)
-            return render_template('result.html',inf=inf,o_inf=o_inf)
+            return render_template('result.html',o_inf=o_inf)
         # except:
         #     return render_template('index.html')
             
